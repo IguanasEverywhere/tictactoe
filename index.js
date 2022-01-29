@@ -1,3 +1,16 @@
+const Player = (marker, markedSpaces) => {
+
+    const markBox = (square) => {
+        playerTwo.markedSpaces.push("box marked");
+        console.log(square);
+    }
+    return {marker, markedSpaces, markBox};
+}
+
+const playerOne = Player("X", []);
+const playerTwo = Player("O", []);
+
+
 const gameBoard = (() => {
     let spaces = ["zero","one","two","three","four","five","six","seven","eight"];
     let gameArea = document.getElementById("gameArea");
@@ -13,7 +26,8 @@ const gameBoard = (() => {
 
            
             square.addEventListener("click", () => {
-                square.textContent = "O"; //placeholder for now
+                playerTwo.markBox(square);
+                square.textContent = playerTwo.marker; //placeholder for now
             });
         });
     }
@@ -22,4 +36,3 @@ const gameBoard = (() => {
 })();
 
 gameBoard.renderBoard();
-
