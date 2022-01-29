@@ -1,8 +1,9 @@
 const Player = (marker, markedSpaces) => {
 
     const markBox = (square) => {
-        playerTwo.markedSpaces.push("box marked");
-        console.log(square);
+        playerTwo.markedSpaces.push(square.id);
+        console.log(square.id);
+        console.log(markedSpaces);
     }
     return {marker, markedSpaces, markBox};
 }
@@ -12,7 +13,7 @@ const playerTwo = Player("O", []);
 
 
 const gameBoard = (() => {
-    let spaces = ["zero","one","two","three","four","five","six","seven","eight"];
+    let spaces = [0,1,2,3,4,5,6,7,8];
     let gameArea = document.getElementById("gameArea");
 
     let num = 0;
@@ -20,7 +21,8 @@ const gameBoard = (() => {
     let renderBoard = () => {
         spaces.forEach((square) => {
             square = document.createElement("div");
-            square.classList.add("space", spaces[num]);
+            square.classList.add("space");
+            square.setAttribute('id', spaces[num]);
             gameArea.appendChild(square);
             num++;
 
