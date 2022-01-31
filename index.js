@@ -1,37 +1,11 @@
-const Player = (marker, markedSpaces) => {
+const Player = (marking) => {
+    let playerArray = [];
 
-    const markBox = (square) => {
-        if (!playerTwo.markedSpaces.includes(square.id)) {
-            playerTwo.markedSpaces.push(square.id);
-            // console.log(square.id);
-            // console.log(markedSpaces);
-            square.textContent = playerTwo.marker; //placeholder for now
-            controlGame(markedSpaces);
-        }
-
-
-    }
-    return { marker, markedSpaces, markBox };
+    return { marking };
 }
 
-const playerOne = Player("X", []);
-const playerTwo = Player("O", []);
-
-const controlGame = (markedSpaces) => {
-
-    console.log(markedSpaces);
-    if (markedSpaces.includes('0') && markedSpaces.includes('1') && markedSpaces.includes('2') ||
-        markedSpaces.includes('3') && markedSpaces.includes('4') && markedSpaces.includes('5') ||
-        markedSpaces.includes('6') && markedSpaces.includes('7') && markedSpaces.includes('8') ||
-        markedSpaces.includes('0') && markedSpaces.includes('3') && markedSpaces.includes('6') ||
-        markedSpaces.includes('1') && markedSpaces.includes('4') && markedSpaces.includes('7') ||
-        markedSpaces.includes('2') && markedSpaces.includes('5') && markedSpaces.includes('8') ||
-        markedSpaces.includes('0') && markedSpaces.includes('4') && markedSpaces.includes('8') ||
-        markedSpaces.includes('2') && markedSpaces.includes('4') && markedSpaces.includes('6')) {
-        console.log("winner!");
-    } 
-}
-
+const playerOne = Player("X");
+const playerTwo = Player("O");
 
 
 const gameBoard = (() => {
@@ -50,12 +24,22 @@ const gameBoard = (() => {
 
 
             square.addEventListener("click", () => {
-                playerTwo.markBox(square);
+                square.textContent = "X";
+                spaces[square.id] = "X";
             });
+
         });
     }
 
-    return { renderBoard };
+    return { renderBoard, spaces };
 })();
 
 gameBoard.renderBoard();
+
+
+const controlGame = (() => {
+    console.log(gameBoard.spaces);
+    playerOne.playerArray = gameBoard.spaces;
+
+
+})();
