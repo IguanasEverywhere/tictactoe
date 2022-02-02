@@ -1,3 +1,5 @@
+// GAMEBOARD MODULE ////////////////////////////////////
+
 const gameBoard = (() => {
     let spaces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     let gameArea = document.getElementById("gameArea");
@@ -18,33 +20,39 @@ const gameBoard = (() => {
     const setSpaces = (e, currentPlayer) => {
         let clickedSpace = e.target.id;
         spaces[clickedSpace] = currentPlayer.marker;
+        currentPlayer.playerArray.push(clickedSpace);
         console.log(spaces);
-        
+        gameControl.checkWinner(currentPlayer);
+
     }
 
-
-    return { renderBoard, setSpaces};
+    return { renderBoard, setSpaces };
 
 })();
 
 gameBoard.renderBoard();
 
 
-const Player = (marker) => {
+// PLAYER FACTORY //////////////////////////////////////////////
+
+const Player = (marker, name) => {
+    let playerArray = [];
 
 
-    return {marker};
+
+    return { marker, name, playerArray };
 }
 
-const playerOne = Player("X");
-const playerTwo = Player("O");
+const playerOne = Player("X", "Player One");
+const playerTwo = Player("O", "Player Two");
+
+
+// GAME CONTROL MODULE /////////////////////////////////////////
 
 const gameControl = (() => {
 
     let playCounter = 0;
     let currentPlayer;
-
-
 
     let blocks = document.querySelectorAll(".space");
     blocks.forEach(block => {
@@ -59,8 +67,22 @@ const gameControl = (() => {
 
             block.textContent = currentPlayer.marker;
 
-            console.log("play counter is now " + playCounter);
-            console.log("current player is now " + currentPlayer.marker);
         });
     });
+
+    const checkWinner = (currentPlayer) => {
+        console.log(currentPlayer.name + " " + currentPlayer.playerArray);
+        if (currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('1') && currentPlayer.playerArray.includes('2') || 
+        currentPlayer.playerArray.includes('3') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('5') ||
+        currentPlayer.playerArray.includes('6') && currentPlayer.playerArray.includes('7') && currentPlayer.playerArray.includes('8') ||
+        currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('3') && currentPlayer.playerArray.includes('6') ||
+        currentPlayer.playerArray.includes('1') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('7') ||
+        currentPlayer.playerArray.includes('2') && currentPlayer.playerArray.includes('5') && currentPlayer.playerArray.includes('8') ||
+        currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('8') ||
+        currentPlayer.playerArray.includes('2') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('6')){
+            console.log(currentPlayer.name + " is the Winner!");
+        }
+    }
+
+    return {checkWinner};
 })();
