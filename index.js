@@ -81,6 +81,11 @@ const gameControl = (() => {
         currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('8') ||
         currentPlayer.playerArray.includes('2') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('6')){
             console.log(currentPlayer.name + " is the Winner!");
+            let body = document.querySelector("body");
+            body.setAttribute("style", "background-color: red");
+            const winnerText = document.createElement("h1");
+            winnerText.textContent = currentPlayer.name + " is the winner!";
+            body.appendChild(winnerText);
         }
     }
 
