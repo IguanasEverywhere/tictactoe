@@ -11,16 +11,9 @@ const gameBoard = (() => {
             square.setAttribute('id', spaces[num]);
             gameArea.appendChild(square);
             num++;
-
-
-            square.addEventListener("click", () => {
-                // square.textContent = "X";
-                spaces[square.id] = "X";
-                playerOne.markBoard(spaces);
-            });
-
         });
     }
+
 
     return { renderBoard };
 })();
@@ -30,18 +23,38 @@ gameBoard.renderBoard();
 
 const Player = (marking) => {
     let playerArray = [];
-    const board = gameBoard.renderBoard;
 
-    const markBoard = (spaces) => {
-        //    board.square.textContent = "X";
-        //     board.spaces[square.id] = "X";
-        playerArray = spaces;
-        console.log(playerArray);
-
+    const markSpace = () => {
+        let squares = document.querySelectorAll(".space");
+        squares.forEach(square => {
+            square.addEventListener("click", () => {
+                square.textContent = marking;
+                gameFlow.determinePlayer(marking);
+            });
+        });
+        
     }
 
-    return { markBoard };
+    return {markSpace};
+
 }
 
 const playerOne = Player("X");
 const playerTwo = Player("O");
+
+
+const gameFlow = ((currentPlayer) => {
+    currentPlayer.markSpace();
+
+    const determinePlayer = (marking) => {
+        console.log("determinePlayer called " + marking);
+        if (marking === "X") {
+            playerTwo.markSpace();
+        } else if (marking === "O") {
+            playerOne.markSpace();
+        }
+    }
+
+    return {determinePlayer};
+   
+})(playerOne);
