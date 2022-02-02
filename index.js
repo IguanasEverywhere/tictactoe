@@ -8,53 +8,59 @@ const gameBoard = (() => {
         spaces.forEach((square) => {
             square = document.createElement("div");
             square.classList.add("space");
-            square.setAttribute('id', spaces[num]);
+            square.setAttribute('id', num);
+            square.textContent = "";
             gameArea.appendChild(square);
             num++;
         });
     }
 
+    const setSpaces = (e, currentPlayer) => {
+        let clickedSpace = e.target.id;
+        spaces[clickedSpace] = currentPlayer.marker;
+        console.log(spaces);
+        
+    }
 
-    return { renderBoard };
+
+    return { renderBoard, setSpaces};
+
 })();
 
 gameBoard.renderBoard();
 
 
-const Player = (marking) => {
-    let playerArray = [];
+const Player = (marker) => {
 
-    const markSpace = () => {
-        let squares = document.querySelectorAll(".space");
-        squares.forEach(square => {
-            square.addEventListener("click", () => {
-                square.textContent = marking;
-                gameFlow.determinePlayer(marking);
-            });
-        });
-        
-    }
 
-    return {markSpace};
-
+    return {marker};
 }
 
 const playerOne = Player("X");
 const playerTwo = Player("O");
 
+const gameControl = (() => {
 
-const gameFlow = ((currentPlayer) => {
-    currentPlayer.markSpace();
+    let playCounter = 0;
+    let currentPlayer;
 
-    const determinePlayer = (marking) => {
-        console.log("determinePlayer called " + marking);
-        if (marking === "X") {
-            playerTwo.markSpace();
-        } else if (marking === "O") {
-            playerOne.markSpace();
-        }
-    }
 
-    return {determinePlayer};
-   
-})(playerOne);
+
+    let blocks = document.querySelectorAll(".space");
+    blocks.forEach(block => {
+        block.addEventListener("click", (e) => {
+            playCounter++;
+            if (playCounter % 2 !== 0) {
+                currentPlayer = playerOne;
+            } else {
+                currentPlayer = playerTwo;
+            }
+            gameBoard.setSpaces(e, currentPlayer);
+
+            block.textContent = currentPlayer.marker;
+
+            console.log("play counter is now " + playCounter);
+            console.log("current player is now " + currentPlayer.marker);
+        });
+    });
+})();
