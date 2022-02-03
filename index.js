@@ -82,7 +82,7 @@ const gameControl = (() => {
 
         blocks.forEach(block => {
             block.addEventListener("click", (e) => {
-                if (block.textContent !== 'X' && block.textContent !== 'O' && gameOver === false) {
+                if (block.textContent !== 'X' && block.textContent !== 'O' && gameControl.gameOver === false) {
                     playCounter++;
                     if (playCounter % 2 !== 0) {
                         currentPlayer = playerOne;
