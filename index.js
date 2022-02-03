@@ -78,16 +78,17 @@ const gameControl = (() => {
         let blocks = document.querySelectorAll(".space");
         blocks.forEach(block => {
             block.addEventListener("click", (e) => {
-                playCounter++;
-                if (playCounter % 2 !== 0) {
-                    currentPlayer = playerOne;
-                } else {
-                    currentPlayer = playerTwo;
+                if (block.textContent !== 'X' && block.textContent!== 'O') {
+                    playCounter++;
+                    if (playCounter % 2 !== 0) {
+                        currentPlayer = playerOne;
+                    } else {
+                        currentPlayer = playerTwo;
+                    }
+                    gameBoard.setSpaces(e, currentPlayer);
+    
+                    block.textContent = currentPlayer.marker;
                 }
-                gameBoard.setSpaces(e, currentPlayer);
-
-                block.textContent = currentPlayer.marker;
-
             });
         });
     }
