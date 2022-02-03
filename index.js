@@ -38,6 +38,7 @@ const gameBoard = (() => {
         spaces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
         num = 0;
         renderBoard();
+        gameControl.gameOver = false;
         gameControl.playGame();
     });
 
@@ -71,14 +72,17 @@ const gameControl = (() => {
     let body = document.querySelector("body");
     const winnerText = document.createElement("h1");
     body.appendChild(winnerText);
+    let gameOver = false;
 
     const playGame = () => {
         body.setAttribute("style", "background-color: blue");
         winnerText.textContent = "Let's Play!";
         let blocks = document.querySelectorAll(".space");
+
+
         blocks.forEach(block => {
             block.addEventListener("click", (e) => {
-                if (block.textContent !== 'X' && block.textContent!== 'O') {
+                if (block.textContent !== 'X' && block.textContent !== 'O' && gameOver === false) {
                     playCounter++;
                     if (playCounter % 2 !== 0) {
                         currentPlayer = playerOne;
@@ -86,7 +90,7 @@ const gameControl = (() => {
                         currentPlayer = playerTwo;
                     }
                     gameBoard.setSpaces(e, currentPlayer);
-    
+
                     block.textContent = currentPlayer.marker;
                 }
             });
@@ -104,17 +108,18 @@ const gameControl = (() => {
             currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('8') ||
             currentPlayer.playerArray.includes('2') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('6')) {
             console.log(currentPlayer.name + " is the Winner!");
-            
+            gameControl.gameOver = true;
+
             body.setAttribute("style", "background-color: red");
-            
+
             winnerText.textContent = currentPlayer.name + " is the winner!";
-           
+
         }
     }
 
 
 
-    return { checkWinner, playGame };
+    return { checkWinner, playGame, gameOver };
 })();
 
 gameControl.playGame();
