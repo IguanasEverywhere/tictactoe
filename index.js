@@ -26,6 +26,23 @@ const gameBoard = (() => {
 
     }
 
+    const newGameBtn = document.getElementById("newGame");
+    newGameBtn.addEventListener("click", () => {
+        let spaces = document.querySelectorAll(".space");
+        spaces.forEach(space => {
+            space.remove();
+        });
+
+        playerOne.playerArray = [];
+        playerTwo.playerArray = [];
+        spaces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        num = 0;
+        renderBoard();
+        gameControl.playGame();
+    });
+
+
+
     return { renderBoard, setSpaces };
 
 })();
@@ -37,8 +54,6 @@ gameBoard.renderBoard();
 
 const Player = (marker, name) => {
     let playerArray = [];
-
-
 
     return { marker, name, playerArray };
 }
@@ -53,41 +68,52 @@ const gameControl = (() => {
 
     let playCounter = 0;
     let currentPlayer;
+    let body = document.querySelector("body");
+    const winnerText = document.createElement("h1");
+    body.appendChild(winnerText);
 
-    let blocks = document.querySelectorAll(".space");
-    blocks.forEach(block => {
-        block.addEventListener("click", (e) => {
-            playCounter++;
-            if (playCounter % 2 !== 0) {
-                currentPlayer = playerOne;
-            } else {
-                currentPlayer = playerTwo;
-            }
-            gameBoard.setSpaces(e, currentPlayer);
+    const playGame = () => {
+        body.setAttribute("style", "background-color: blue");
+        winnerText.textContent = "Let's Play!";
+        let blocks = document.querySelectorAll(".space");
+        blocks.forEach(block => {
+            block.addEventListener("click", (e) => {
+                playCounter++;
+                if (playCounter % 2 !== 0) {
+                    currentPlayer = playerOne;
+                } else {
+                    currentPlayer = playerTwo;
+                }
+                gameBoard.setSpaces(e, currentPlayer);
 
-            block.textContent = currentPlayer.marker;
+                block.textContent = currentPlayer.marker;
 
+            });
         });
-    });
+    }
 
     const checkWinner = (currentPlayer) => {
         console.log(currentPlayer.name + " " + currentPlayer.playerArray);
-        if (currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('1') && currentPlayer.playerArray.includes('2') || 
-        currentPlayer.playerArray.includes('3') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('5') ||
-        currentPlayer.playerArray.includes('6') && currentPlayer.playerArray.includes('7') && currentPlayer.playerArray.includes('8') ||
-        currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('3') && currentPlayer.playerArray.includes('6') ||
-        currentPlayer.playerArray.includes('1') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('7') ||
-        currentPlayer.playerArray.includes('2') && currentPlayer.playerArray.includes('5') && currentPlayer.playerArray.includes('8') ||
-        currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('8') ||
-        currentPlayer.playerArray.includes('2') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('6')){
+        if (currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('1') && currentPlayer.playerArray.includes('2') ||
+            currentPlayer.playerArray.includes('3') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('5') ||
+            currentPlayer.playerArray.includes('6') && currentPlayer.playerArray.includes('7') && currentPlayer.playerArray.includes('8') ||
+            currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('3') && currentPlayer.playerArray.includes('6') ||
+            currentPlayer.playerArray.includes('1') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('7') ||
+            currentPlayer.playerArray.includes('2') && currentPlayer.playerArray.includes('5') && currentPlayer.playerArray.includes('8') ||
+            currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('8') ||
+            currentPlayer.playerArray.includes('2') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('6')) {
             console.log(currentPlayer.name + " is the Winner!");
-            let body = document.querySelector("body");
+            
             body.setAttribute("style", "background-color: red");
-            const winnerText = document.createElement("h1");
+            
             winnerText.textContent = currentPlayer.name + " is the winner!";
-            body.appendChild(winnerText);
+           
         }
     }
 
-    return {checkWinner};
+
+
+    return { checkWinner, playGame };
 })();
+
+gameControl.playGame();
