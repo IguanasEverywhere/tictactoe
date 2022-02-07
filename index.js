@@ -38,7 +38,7 @@ const gameBoard = (() => {
         spaces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
         num = 0;
         renderBoard();
-        gameControl.gameOver = false;
+        gameControl.setGameOver(false);
         gameControl.playGame();
     });
 
@@ -74,6 +74,14 @@ const gameControl = (() => {
     body.appendChild(winnerText);
     let gameOver = false;
 
+    setGameOver = (isGameOver) => {
+        gameOver = isGameOver;
+    }
+
+    getGameOver = () => {
+        return gameOver;
+    }
+
     const playGame = () => {
         body.setAttribute("style", "background-color: blue");
         winnerText.textContent = "Let's Play!";
@@ -82,8 +90,9 @@ const gameControl = (() => {
 
         blocks.forEach(block => {
             block.addEventListener("click", (e) => {
-                if (block.textContent !== 'X' && block.textContent !== 'O' && gameControl.gameOver === false) {
+                if (block.textContent !== 'X' && block.textContent !== 'O' && gameOver === false) {
                     playCounter++;
+                    console.log("Get game over value is " + getGameOver());
                     if (playCounter % 2 !== 0) {
                         currentPlayer = playerOne;
                     } else {
@@ -108,7 +117,7 @@ const gameControl = (() => {
             currentPlayer.playerArray.includes('0') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('8') ||
             currentPlayer.playerArray.includes('2') && currentPlayer.playerArray.includes('4') && currentPlayer.playerArray.includes('6')) {
             console.log(currentPlayer.name + " is the Winner!");
-            gameControl.gameOver = true;
+            setGameOver(true);
 
             body.setAttribute("style", "background-color: red");
 
@@ -119,7 +128,7 @@ const gameControl = (() => {
 
 
 
-    return { checkWinner, playGame, gameOver };
+    return { checkWinner, playGame, setGameOver, getGameOver };
 })();
 
 gameControl.playGame();
