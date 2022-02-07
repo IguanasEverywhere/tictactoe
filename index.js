@@ -66,11 +66,10 @@ const playerTwo = Player("O", "Player Two");
 // GAME CONTROL MODULE /////////////////////////////////////////
 
 const gameControl = (() => {
-
-    let playCounter = 0;
+    
     let currentPlayer;
     let body = document.querySelector("body");
-    const winnerText = document.createElement("h1");
+    const winnerText = document.createElement("h2");
     body.appendChild(winnerText);
     let gameOver = false;
 
@@ -83,6 +82,7 @@ const gameControl = (() => {
     }
 
     const playGame = () => {
+        let playCounter = 0;
         body.setAttribute("style", "background-color: #0b0be3c9");
         winnerText.textContent = "Let's Play!";
         let blocks = document.querySelectorAll(".space");
