@@ -1,6 +1,12 @@
 body {
-    background-color: blue;
+    background-color: #0b0be3c9;
     text-align: center;
+    font-family: 'Dancing Script', cursive;
+}
+
+h1 {
+    color:#c73c1c;
+    font-size: 3rem;
 }
 
 #playArea {
@@ -10,11 +16,14 @@ body {
 }
 
 #gameArea {
-    background-color: white;
+    background-color: #e7e8ef;
     width: 312px;
     display: flex;
     flex-wrap: wrap;
+    box-shadow: 10px 10px 50px #a7b5e7;
 }
+
+
 
 .space {
     width: 100px;
@@ -26,5 +35,13 @@ body {
 }
 
 #newGame {
-    margin-top: 10px;
+    margin-top: 40px;
+    font-size: 1.5rem;
+    font-family: 'Dancing Script';
+    color: blue;
+    background-color: #e2ef1e;
+}
+
+#newGame:hover {
+    background-color: yellow;
 }

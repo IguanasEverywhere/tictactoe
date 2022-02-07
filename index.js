@@ -83,7 +83,7 @@ const gameControl = (() => {
     }
 
     const playGame = () => {
-        body.setAttribute("style", "background-color: blue");
+        body.setAttribute("style", "background-color: #0b0be3c9");
         winnerText.textContent = "Let's Play!";
         let blocks = document.querySelectorAll(".space");
 
@@ -119,7 +119,7 @@ const gameControl = (() => {
             console.log(currentPlayer.name + " is the Winner!");
             setGameOver(true);
 
-            body.setAttribute("style", "background-color: red");
+            body.setAttribute("style", "background-color: #6a3d3d");
 
             winnerText.textContent = currentPlayer.name + " is the winner!";
 
