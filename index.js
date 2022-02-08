@@ -1,6 +1,24 @@
+const initialization = (() => {
+    let popUpWindow = document.getElementById("beginningPopup");
+    let okBtn = document.getElementById("okBtn");
+
+    let p1Name = document.getElementById("playerOneName");
+    let p2Name = document.getElementById("playerTwoName");
+
+    okBtn.addEventListener("click", () => {
+        let p1NameValue = p1Name.value;
+        let p2NameValue = p2Name.value;
+        popUpWindow.style.display = "none";
+        console.log(p1NameValue);
+        console.log(p2NameValue);
+    });
+})();
+
+
 // GAMEBOARD MODULE ////////////////////////////////////
 
 const gameBoard = (() => {
+
     let spaces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     let gameArea = document.getElementById("gameArea");
 
@@ -66,7 +84,7 @@ const playerTwo = Player("O", "Player Two");
 // GAME CONTROL MODULE /////////////////////////////////////////
 
 const gameControl = (() => {
-    
+
     let currentPlayer;
     let body = document.querySelector("body");
     const winnerText = document.createElement("h2");
@@ -82,6 +100,7 @@ const gameControl = (() => {
     }
 
     const playGame = () => {
+
         let playCounter = 0;
         body.setAttribute("style", "background-color: #0b0be3c9");
         winnerText.textContent = "Let's Play!";
@@ -132,3 +151,4 @@ const gameControl = (() => {
 })();
 
 gameControl.playGame();
+
