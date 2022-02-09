@@ -1,3 +1,8 @@
+let p1NameValue;
+let p2NameValue;
+
+// POPUP AND INITIALIZATION MODULE
+
 const initialization = (() => {
     let popUpWindow = document.getElementById("beginningPopup");
     let okBtn = document.getElementById("okBtn");
@@ -6,11 +11,17 @@ const initialization = (() => {
     let p2Name = document.getElementById("playerTwoName");
 
     okBtn.addEventListener("click", () => {
-        let p1NameValue = p1Name.value;
-        let p2NameValue = p2Name.value;
+        p1NameValue = p1Name.value;
+        p2NameValue = p2Name.value;
+
+        Object.assign(playerOne, {marker: "X", name: p1NameValue});
+        Object.assign(playerTwo, {marker: "O", name: p2NameValue});
+
         popUpWindow.style.display = "none";
         console.log(p1NameValue);
         console.log(p2NameValue);
+        gameBoard.renderBoard();
+        gameControl.playGame();
     });
 })();
 
@@ -66,7 +77,7 @@ const gameBoard = (() => {
 
 })();
 
-gameBoard.renderBoard();
+
 
 
 // PLAYER FACTORY //////////////////////////////////////////////
@@ -149,6 +160,3 @@ const gameControl = (() => {
 
     return { checkWinner, playGame, setGameOver, getGameOver };
 })();
-
-gameControl.playGame();
-
