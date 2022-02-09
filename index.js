@@ -143,6 +143,7 @@ const gameControl = (() => {
             blocks.forEach(block => {
                 block.addEventListener("click", (e) => {
                     if (block.textContent !== 'X' && block.textContent !== 'O' && gameOver === false) {
+                        popAudio.currentTime=0;
                         popAudio.play();
                         gameBoard.setSpaces(e, playerOne);
                         block.textContent = playerOne.marker;
@@ -156,6 +157,7 @@ const gameControl = (() => {
                             if (blocks[randomNumber].textContent !== 'X' && blocks[randomNumber].textContent !== 'O') {
                                 playerTwo.playerArray.push(String(randomNumber));
                                 blocks[randomNumber].textContent = playerTwo.marker;
+                                popAudio.currentTime=0;
                                 popAudio.play();
                                 checkWinner(playerTwo);
 
@@ -172,6 +174,7 @@ const gameControl = (() => {
             block.addEventListener("click", (e) => {
                 if (block.textContent !== 'X' && block.textContent !== 'O' && gameOver === false) {
                     playCounter++;
+                    popAudio.currentTime=0;
                     popAudio.play();
                     console.log("Get game over value is " + getGameOver());
                     if (playCounter % 2 !== 0) {
