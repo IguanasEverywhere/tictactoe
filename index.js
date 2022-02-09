@@ -65,9 +65,8 @@ const gameBoard = (() => {
         currentPlayer.playerArray.push(clickedSpace);
         console.log(spaces);
         gameControl.checkWinner(currentPlayer);
-
-
     }
+
 
     const newGameBtn = document.getElementById("newGame");
     newGameBtn.addEventListener("click", () => {
@@ -124,12 +123,44 @@ const gameControl = (() => {
         return gameOver;
     }
 
+
     const playGame = () => {
 
         let playCounter = 0;
+        let randomNumber;
         body.setAttribute("style", "background-color: #0b0be3c9");
         winnerText.textContent = "Let's Play!";
         let blocks = document.querySelectorAll(".space");
+
+
+        if (onePlayerGame === true) {
+            blocks.forEach(block => {
+                block.addEventListener("click", (e) => {
+                    if (block.textContent !== 'X' && block.textContent !== 'O' && gameOver === false) {
+                        gameBoard.setSpaces(e, playerOne);
+                        block.textContent = playerOne.marker;
+
+                        if (gameOver === false) {
+                            computerPlay();
+                        }
+                        function computerPlay() {
+                            randomNumber = Math.floor(Math.random() * 9);
+
+                            if (blocks[randomNumber].textContent !== 'X' && blocks[randomNumber].textContent !== 'O') {
+                                playerTwo.playerArray.push(String(randomNumber));
+                                blocks[randomNumber].textContent = playerTwo.marker;
+                                checkWinner(playerTwo);
+
+                            } else {
+                                computerPlay();
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+
 
 
         blocks.forEach(block => {
@@ -144,7 +175,6 @@ const gameControl = (() => {
                     }
                     gameBoard.setSpaces(e, currentPlayer);
                     block.textContent = currentPlayer.marker;
-
                 }
             });
         });
