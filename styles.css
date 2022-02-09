@@ -22,6 +22,13 @@ input, button {
     margin: 25px;
 }
 
+#checkBoxForPlayerNums {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 1.5rem;
+}
+
 h1 {
     color:#c73c1c;
     font-size: 3rem;
