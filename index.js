@@ -1,5 +1,6 @@
 let p1NameValue;
 let p2NameValue;
+let onePlayerGame = false;
 
 // POPUP AND INITIALIZATION MODULE
 
@@ -14,8 +15,8 @@ const initialization = (() => {
         p1NameValue = p1Name.value;
         p2NameValue = p2Name.value;
 
-        Object.assign(playerOne, {marker: "X", name: p1NameValue});
-        Object.assign(playerTwo, {marker: "O", name: p2NameValue});
+        Object.assign(playerOne, { marker: "X", name: p1NameValue });
+        Object.assign(playerTwo, { marker: "O", name: p2NameValue });
 
         popUpWindow.style.display = "none";
         console.log(p1NameValue);
@@ -23,6 +24,18 @@ const initialization = (() => {
         gameBoard.renderBoard();
         gameControl.playGame();
     });
+
+    let onePlayerGameBox = document.getElementById("onePlayerGame");
+
+    function checkBox() {
+        if (onePlayerGameBox.checked === true) {
+            console.log("it's checked");
+            onePlayerGame = true;
+        }
+    }
+
+    return { checkBox };
+
 })();
 
 
@@ -52,6 +65,7 @@ const gameBoard = (() => {
         currentPlayer.playerArray.push(clickedSpace);
         console.log(spaces);
         gameControl.checkWinner(currentPlayer);
+
 
     }
 
@@ -129,11 +143,12 @@ const gameControl = (() => {
                         currentPlayer = playerTwo;
                     }
                     gameBoard.setSpaces(e, currentPlayer);
-
                     block.textContent = currentPlayer.marker;
+
                 }
             });
         });
+
     }
 
     const checkWinner = (currentPlayer) => {
@@ -155,6 +170,7 @@ const gameControl = (() => {
 
         }
     }
+
 
 
 
