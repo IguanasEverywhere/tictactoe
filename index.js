@@ -1,8 +1,10 @@
+// GLOBALS //////////////////////////////////////////////
+
 let p1NameValue;
 let p2NameValue;
 let onePlayerGame = false;
 
-// POPUP AND INITIALIZATION MODULE
+// POPUP AND INITIALIZATION MODULE /////////////////////////
 
 const initialization = (() => {
     let popUpWindow = document.getElementById("beginningPopup");
@@ -115,6 +117,10 @@ const gameControl = (() => {
     body.appendChild(winnerText);
     let gameOver = false;
 
+    let popAudio = new Audio('sounds/pop.flac');
+    let gameOverAudio = new Audio('sounds/gameOver.flac');
+
+
     setGameOver = (isGameOver) => {
         gameOver = isGameOver;
     }
@@ -137,11 +143,12 @@ const gameControl = (() => {
             blocks.forEach(block => {
                 block.addEventListener("click", (e) => {
                     if (block.textContent !== 'X' && block.textContent !== 'O' && gameOver === false) {
+                        popAudio.play();
                         gameBoard.setSpaces(e, playerOne);
                         block.textContent = playerOne.marker;
 
                         if (gameOver === false) {
-                            computerPlay();
+                            setTimeout(computerPlay, 1000);
                         }
                         function computerPlay() {
                             randomNumber = Math.floor(Math.random() * 9);
@@ -149,6 +156,7 @@ const gameControl = (() => {
                             if (blocks[randomNumber].textContent !== 'X' && blocks[randomNumber].textContent !== 'O') {
                                 playerTwo.playerArray.push(String(randomNumber));
                                 blocks[randomNumber].textContent = playerTwo.marker;
+                                popAudio.play();
                                 checkWinner(playerTwo);
 
                             } else {
@@ -160,13 +168,11 @@ const gameControl = (() => {
             });
         }
 
-
-
-
         blocks.forEach(block => {
             block.addEventListener("click", (e) => {
                 if (block.textContent !== 'X' && block.textContent !== 'O' && gameOver === false) {
                     playCounter++;
+                    popAudio.play();
                     console.log("Get game over value is " + getGameOver());
                     if (playCounter % 2 !== 0) {
                         currentPlayer = playerOne;
@@ -195,14 +201,10 @@ const gameControl = (() => {
             setGameOver(true);
 
             body.setAttribute("style", "background-color: #6a3d3d");
-
+            gameOverAudio.play();
             winnerText.textContent = currentPlayer.name + " is the winner!";
 
         }
     }
-
-
-
-
     return { checkWinner, playGame, setGameOver, getGameOver };
 })();
