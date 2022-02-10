@@ -149,7 +149,7 @@ const gameControl = (() => {
                         block.textContent = playerOne.marker;
 
                         if (gameOver === false) {
-                            setTimeout(computerPlay, 1000);
+                            setTimeout(computerPlay, 600);
                         }
                         function computerPlay() {
                             randomNumber = Math.floor(Math.random() * 9);
