@@ -16,10 +16,18 @@ body {
     display: flex;
     flex-direction: column;
     position:absolute;
+    animation-name: popAnimation;
+    animation-duration: 1s;
 }
+
+@keyframes popAnimation {
+    from {top: 0px}
+    to {top: 105.656px}
+  }
 
 input, button {
     margin: 25px;
+
 }
 
 #checkBoxForPlayerNums {
@@ -77,3 +85,4 @@ h2 {
 #newGame:hover {
     background-color: yellow;
 }
+
